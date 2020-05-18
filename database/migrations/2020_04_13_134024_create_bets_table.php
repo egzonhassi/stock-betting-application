@@ -17,6 +17,8 @@ class CreateBetsTable extends Migration
             $table->id();
             $table->foreignId('stock_prices_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->double('bet_price' , 18 , 2)->unsigned();
+            $table->string('bet_type' , 100);
             $table->timestamps();
         });
     }
