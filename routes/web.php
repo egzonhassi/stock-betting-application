@@ -26,3 +26,5 @@ Route::get('dashboard', 'UserController@dashboard')->name('dashboard');
 
 Route::get('chart', 'UserController@chart')->name('chart');
 
+Route::get('placeBets' , 'BetsController@index')->name('placeBets');
+

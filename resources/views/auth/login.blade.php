@@ -83,6 +83,11 @@
                                                 one!</a>
                                         </div>
 
+                                        @empty($record)
+                                        <div class="alert alert-danger" role="alert">
+                                            Please Login To Proceede!
+                                          </div>
+                                        @endempty
                                     </form>
                                 </div>
                             </div>

@@ -69,7 +69,7 @@
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Betting Components:</h6>
-                                <a class="collapse-item" href="">Place a bet</a>
+                                <a class="collapse-item" href="{{ route('placeBets')}}">Place a bet</a>
                                 <a class="collapse-item" href="">Betting History</a>
                             </div>
                         </div>

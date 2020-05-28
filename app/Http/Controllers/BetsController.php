@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bets;
 use Illuminate\Http\Request;
+use Auth;
 
 class BetsController extends Controller
 {
@@ -14,7 +15,11 @@ class BetsController extends Controller
      */
     public function index()
     {
-        //
+        if(Auth::check()){
+            return view('placeBets');
+        }else{
+            return view('auth.login')->with("error" , "Please Login To Proceede");
+        }
     }
 
     /**
