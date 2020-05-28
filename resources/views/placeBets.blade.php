@@ -111,6 +111,13 @@
                 </label>
           </div>
             <button class="d-flex m-0-auto btn btn-success" type="submit">Submit</button>
+            @if (\Session::has('success'))
+                <div class="alert alert-success">
+                    <ul>
+                        <li>{!! \Session::get('success') !!}</li>
+                    </ul>
+                </div>
+            @endif
             @if($errors->any())
              <div class="alert alert-danger" role="alert">
                 {{$errors->first()}}

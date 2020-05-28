@@ -6,6 +6,7 @@ use App\Bets;
 use Illuminate\Http\Request;
 use App\Company;
 
+
 use Auth;
 
 class BetsController extends Controller
@@ -36,16 +37,19 @@ class BetsController extends Controller
 
     public function create(Request $r , $id)
     {
-        if(Auth::user()){
+        $user = Auth::user();
+        if($user){
 
-            if(Auth::user()->tokens >= $r->ammount){
-                dd("xxx");
-                $bet = new Bet();
+            if($user->tokens >= $r->ammount){
+                $bet = new Bets();
                 $bet->stock_prices_id = $id;
-                $bet->user_id = Auth::user()->id;
+                $bet->user_id = $user->id;
                 $bet->bet_price = $r->ammount;
                 $bet->bet_type = $r->betType;
-                if($bet->save()){
+
+                $user->tokens = $user->tokens - $r->ammount;
+
+                if($bet->save() && $user->save()){
                     return redirect()->back()->with('success' , 'Bet Placed, Good Luck!');
                 }
                 return redirect()->back()->withErrors(['Something went wrong, please try again later.']);
