@@ -34,7 +34,6 @@
     <div id="app">
 
         <body id="page-top">
-
             <div id="wrapper">
 
                 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -104,50 +103,10 @@
                             <ul class="navbar-nav ml-auto">
 
                                 <li class="nav-item dropdown no-arrow mx-1">
-                                    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-bell fa-fw"></i>
-                                        <span class="badge badge-danger badge-counter">*</span>
-                                    </a>
-                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                        aria-labelledby="alertsDropdown">
-                                        <h6 class="dropdown-header">
-                                            Alerts Center
-                                        </h6>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="mr-3">
-                                                <div class="icon-circle bg-primary">
-                                                    <i class="fas fa-donate text-white"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="small text-gray-500">December 12, 2019</div>
-                                                <span class="font-weight-bold">You won 20 tokns!</span>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="mr-3">
-                                                <div class="icon-circle bg-success">
-                                                    <i class="fas fa-donate text-white"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="small text-gray-500">December 7, 2019</div>
-                                                You won 20 tokns!
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="mr-3">
-                                                <div class="icon-circle bg-warning">
-                                                    <i class="fas fa-exclamation-triangle text-white"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="small text-gray-500">December 2, 2019</div>
-                                                You lost 35 tokens.
-                                            </div>
-                                        </a>
-                                    </div>
+                                    <span class="nav-link">
+                                        <span class="">{{Auth::user()->tokens }}</span><i class="fab fa-bitcoin fa-fw"></i>
+
+                                    </span>
                                 </li>
 
                                 <div class="topbar-divider d-none d-sm-block"></div>
@@ -155,9 +114,9 @@
                                 <li class="nav-item dropdown no-arrow">
                                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Current User</span>
+                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->name }}</span>
                                         <img class="img-profile rounded-circle"
-                                            src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                                            src="">
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                         aria-labelledby="userDropdown">
@@ -206,28 +165,30 @@
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.
+                        <div class="modal-body">We will miss you, make sure you come back again.
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="login.html">Logout</a>
+                            {!!Form::open(array('route' => 'logout', 'method' => 'post')) !!}
+                            <a class="btn btn-primary">Logout</a>
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>
             </div>
 
-            <script src={{ asset('"vendor/jquery/jquery.min.js"') }}></script>
-            <script src={{ asset('"vendor/bootstrap/js/bootstrap.bundle.min.js"') }}></script>
+            <script src={{ asset('vendor/jquery/jquery.js') }}></script>
+            <script src={{ asset('vendor/bootstrap/js/bootstrap.bundle.js') }}></script>
 
-            <script src={{ asset('"vendor/jquery-easing/jquery.easing.min.js"') }}></script>
+            <script src={{ asset('vendor/jquery-easing/jquery.easing.js') }}></script>
 
-            <script src={{ asset('"js/sb-admin-2.min.js"') }}></script>
+            <script src={{ asset('js/sb-admin-2.js') }}></script>
 
-            <script src={{ asset('"vendor/chart.js/Chart.min.js"') }}></script>
+            <script src={{ asset('vendor/chart.js/Chart.js') }}></script>
 
-            <script src={{ asset('"js/demo/chart-area-demo.js"') }}></script>
-            <script src={{ asset('"js/demo/chart-pie-demo.js"') }}></script>
-            <script src={{ asset('"js/demo/chart-bar-demo.js"') }}></script>
+            <script src={{ asset('js/demo/chart-area-demo.js') }}></script>
+            <script src={{ asset('js/demo/chart-pie-demo.js') }}></script>
+            <script src={{ asset('js/demo/chart-bar-demo.js') }}></script>
 
         </body>
 

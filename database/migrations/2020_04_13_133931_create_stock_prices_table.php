@@ -18,7 +18,7 @@ class CreateStockPricesTable extends Migration
             $table->string('name');
             $table->double('price')->unsigned();
             $table->tinyInteger('isFixed')->unsigned()->default('0');
-            $table->tineInteger('new')->unsigned()->default('1');
+            $table->tinyInteger('new')->unsigned()->default('1');
             $table->timestamps();
         });
     }
