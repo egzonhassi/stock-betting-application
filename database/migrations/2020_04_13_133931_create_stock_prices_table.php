@@ -15,9 +15,8 @@ class CreateStockPricesTable extends Migration
     {
         Schema::create('stock_prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('companies_id')->constrained();
+            $table->foreignId('company_id')->constrained();
             $table->double('price')->unsigned();
-            $table->tinyInteger('isFixed')->unsigned()->default('0');
             $table->tinyInteger('new')->unsigned()->default('1');
             $table->timestamps();
         });

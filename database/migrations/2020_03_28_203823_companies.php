@@ -17,6 +17,7 @@ class Companies extends Migration
             $table->id();
             $table->string('name', 100)->nullable();
             $table->string('symbol', 100)->nullable();
+            $table->tinyInteger('isFixed')->unsigned()->default('0');
             $table->timestamps();
         });
     }
