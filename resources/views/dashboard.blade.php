@@ -85,118 +85,36 @@
                 <thead>
                     <tr>
                         <th>Company</th>
-                        <th>Growth Percentage</th>
-                        <th>Current Price</th>
+                        <th>Current Stock Price</th>
+                        <th>Place a bet!</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Company</th>
-                        <th>Growth Percentage</th>
-                        <th>Current Price</th>
+                        <th>Current Stock Price</th>
+                        <th>Place a bet!</th>
                     </tr>
                 </tfoot>
                 <tbody>
+                    @foreach ($companies as $company)
                     <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
+                        <td>
+                            {{$company->name}}
+                        </td>
+                        <td>
+                            {{$company->price}}
+                        </td>
+                        <td>
+                            <a href="{{route('placeBets' , $company->id)}}" class="btn btn-secondary btn-icon-split">
+                                <span class="icon text-white-50">
+                                  <i class="fas fa-dice"></i>
+                                </span>
+                                <span class="text">Place Bet</span>
+                              </a>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
-                    <tr>
-                        <td>Company #</td>
-                        <td>+0.5%</td>
-                        <td>12 Tokens</td>
-                    </tr>
+                    @endforeach
                 <tbody>
             </table>
         </div>

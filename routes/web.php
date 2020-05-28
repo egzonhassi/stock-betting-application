@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if(Auth::check()){
-        return view('dashboard');
+        return redirect('dashboard');
     }
     return view('auth/login');
 })->name('login');
@@ -26,38 +26,18 @@ Route::get('dashboard', 'UserController@dashboard')->name('dashboard');
 
 Route::get('chart', 'UserController@chart')->name('chart');
 
-Route::get('placeBets' , 'BetsController@index')->name('placeBets');
+Route::get('placeBets/{id}' , 'BetsController@index')->name('placeBets');
 
-Route::get('stockTest' , function(){
+Route::post('makeBet/{id}' , 'BetsController@create')->name('makeBet');
 
-    $token = 'pk_79ada5d3f2054fea97bd2b57d055d5e2';
-    $company = [
-        "Apple" => "aapl",
-        "Starbucks" => "sbux",
-        "Nike" => "NKE",
-        "Sony" => "SNE",
-        "Google" => "GOOG"
-    ];
+Route::get('fixPrices' , 'UserController@fixPrices')->name('fixPrices');
 
-    foreach ($company as $key => $value) {
-    }
-    $ch = curl_init();
+Route::get('fixPrice/{id}' , 'UserController@fixPrice')->name('fixPrice');
 
-    curl_setopt($ch, CURLOPT_URL, 'https://cloud.iexapis.com/stable/stock/GOOG/quote?token='.$token);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+Route::get("test", function(){
+    $companies = App\Company::select('companies.name' , 'stock_prices.price' , 'companies.symbol')
+            ->join('stock_prices' , 'companies.id' , '=' , 'stock_prices.company_id')
+            ->where('stock_prices.new' , '=' ,'1')->get();
 
-    $result = curl_exec($ch);
-    if (curl_errno($ch)) {
-        echo 'Error:' . curl_error($ch);
-    }
-    curl_close($ch);
-
-    return json_decode($result , true);//['companyName'];
-    //['iexRealtimePrice']
-    //['symbol']
+    return response()->json($companies, 200);
 });
-
-Route::get('companies', function () {
-    return response()->json(App\Company::all());
-});
-

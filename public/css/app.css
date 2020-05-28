@@ -1,1 +1,9 @@
 /* Private CSS */
+
+.m-0-auto{
+    margin: 0 auto;
+}
+
+.w-50{
+    width:50%;
+}

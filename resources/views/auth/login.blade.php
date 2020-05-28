@@ -83,9 +83,9 @@
                                                 one!</a>
                                         </div>
 
-                                        @empty($record)
+                                        @if($errors->any())
                                         <div class="alert alert-danger" role="alert">
-                                            Please Login To Proceede!
+                                            {{$errors->first()}}
                                           </div>
                                         @endempty
                                     </form>

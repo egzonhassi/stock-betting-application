@@ -81,6 +81,45 @@
     </div>
     <div class="card-body">
 
+        <div class="m-0-auto w-50">
+            <form action="/makeBet/{{$company->id}}" method="post">
+            @csrf
+            <div class="form-group">
+                <input type="text" value="{{$company->name}}"
+                    class="form-control form-control-user"
+                    name="ammount" readonly
+                    autofocus>
+            </div>
+            <div class="form-group">
+                <input type="number" value="{{$company->price}}"
+                    class="form-control form-control-user"
+                    name="ammount" readonly
+                    autofocus>
+            </div>
+            <div class="form-group">
+                <input type="number" placeholder="Bet Ammount"
+                    class="form-control form-control-user"
+                    name="ammount" required
+                    autofocus>
+            </div>
+            <div class="d-flex justify-content-between" data-toggle="buttons">
+                <label class="btn btn-primary">
+                  <input type="radio" name="betType" value="up" id="option1"> UP
+                </label>
+                <label class="btn btn-primary">
+                  <input type="radio" name="betType" value="down" id="option2"> DOWN
+                </label>
+          </div>
+            <button class="d-flex m-0-auto btn btn-success" type="submit">Submit</button>
+            @if($errors->any())
+             <div class="alert alert-danger" role="alert">
+                {{$errors->first()}}
+                 </div>
+            @endif
+            </form>
+
+
+        </div>
     </div>
 </div>
 @endsection

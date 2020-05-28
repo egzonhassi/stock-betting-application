@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Bets;
 use Illuminate\Http\Request;
+use App\Company;
+
 use Auth;
 
 class BetsController extends Controller
@@ -13,12 +15,16 @@ class BetsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         if(Auth::check()){
-            return view('placeBets');
+            $company = Company::select('companies.id','companies.name' , 'stock_prices.price')
+            ->join('stock_prices' , 'companies.id' , '=' , 'stock_prices.company_id')
+            ->where('companies.id' , '=' , $id)
+            ->where('stock_prices.new' , '=' ,'1')->first();
+            return view('placeBets')->with('company' , $company);
         }else{
-            return view('auth.login')->with("error" , "Please Login To Proceede");
+            return view('auth.login')->withErrors(["Please Login To Proceede"]);
         }
     }
 
@@ -28,64 +34,28 @@ class BetsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function create()
+    public function create(Request $r , $id)
     {
-        //
+        if(Auth::user()){
+
+            if(Auth::user()->tokens >= $r->ammount){
+                dd("xxx");
+                $bet = new Bet();
+                $bet->stock_prices_id = $id;
+                $bet->user_id = Auth::user()->id;
+                $bet->bet_price = $r->ammount;
+                $bet->bet_type = $r->betType;
+                if($bet->save()){
+                    return redirect()->back()->with('success' , 'Bet Placed, Good Luck!');
+                }
+                return redirect()->back()->withErrors(['Something went wrong, please try again later.']);
+            }else{
+
+                return redirect()->back()->withErrors(['Insuffisent Tokens!']);
+            }
+
+        }
+        return view('auth.login')->withErrors(["Please Login To Proceede"]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Bets  $bets
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Bets $bets)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Bets  $bets
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Bets $bets)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bets  $bets
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Bets $bets)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Bets  $bets
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Bets $bets)
-    {
-        //
-    }
 }
