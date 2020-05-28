@@ -9,4 +9,9 @@ class Company extends Model
     protected $table = 'companies';
 
     protected $fillable = ['name','symbol'];
+
+    public function companies()
+    {
+        return $this->hasMany('App\StockPrice');
+    }
 }
