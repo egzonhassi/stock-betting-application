@@ -69,7 +69,7 @@
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Betting Components:</h6>
-                                <a class="collapse-item" href="">Betting History</a>
+                                <a class="collapse-item" href="{{ route('bettingHistory')}}">Betting History</a>
                                 @if(Auth::user()->isAdmin == 1)
                                     <a class="collapse-item" href="{{ route('fixPrices')}}">Fix Prices</a>
                                 @endif
@@ -146,7 +146,7 @@
                     <footer class="sticky-footer bg-white">
                         <div class="container my-auto">
                             <div class="copyright text-center my-auto">
-                                <span>Copyright &copy; Your Website 2019</span>
+                                <span>Copyright &copy; Simplebet!</span>
                             </div>
                         </div>
                     </footer>

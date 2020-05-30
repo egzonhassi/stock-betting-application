@@ -33,6 +33,31 @@ class UserController extends Controller
 
     }
 
+    public function bettingHistory(){
+
+        if(Auth::user()){
+
+            $bets = Bets::select("companies.name" , "bets.created_at" , "bets.bet_price" , "bets.bet_type")
+            ->join('stock_prices' , 'stock_prices.id' , '=' ,'bets.stock_prices_id')
+            ->join('companies' , 'companies.id' , '=' ,'company_id')
+            ->where('bets.user_id' , '=' , Auth::user()->id)
+            ->get();
+
+            $activeBets = Bets::where('bets.user_id' , '=' , Auth::user()->id)->whereDate('created_at' , Carbon::today())->count();
+
+            $numberOfbets = Bets::where('bets.user_id' , '=' , Auth::user()->id)->count();
+
+
+            return view('bettingHistory')->with([
+                'bets' => $bets,
+                'activeBets' => $activeBets,
+                'numberOfBets' => $numberOfbets
+                ]);
+        }else{
+            return redirect('/');
+        }
+    }
+
     public function chart(){
         return view('chart');
     }
