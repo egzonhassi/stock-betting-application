@@ -68,7 +68,7 @@
 </div>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Current Stock Price</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Your Betting History</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -77,16 +77,18 @@
                     <tr>
                         <th>Company</th>
                         <th>Date</th>
-                        <th>Ammount</th>
                         <th>Bet Type</th>
+                        <th>Amount</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Company</th>
                         <th>Date</th>
-                        <th>Ammount</th>
                         <th>Bet Type</th>
+                        <th>Amount</th>
+                        <th>Status</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -96,7 +98,7 @@
 
                     {{--  --}}
                     @foreach ($bets as $bet)
-                    <tr>
+                    <tr class="text-capitalize">
                         <td>
                             {{$bet->name}}
                         </td>
@@ -104,11 +106,32 @@
                             {{$bet->created_at}}
                         </td>
                         <td>
-                            {{$bet->bet_price}}
-                        </td>
-                        <td>
                             {{$bet->bet_type}}
                         </td>
+                        @if($bet->status == "Won")
+                            <td class="text-success">
+                                {{$bet->bet_price}}
+                            </td>
+                            <td class="text-success">
+                                {{$bet->status}}
+                            </td>
+                        @elseif($bet->status == "Lost")
+                            <td class="text-danger">
+                                {{$bet->bet_price}}
+                            </td>
+                            <td class="text-danger">
+                                {{$bet->status}}
+                            </td>
+                        @else
+                            <td>
+                                {{$bet->bet_price}}
+                            </td>
+                            <td>
+                                {{$bet->status}}
+                            </td>
+                        @endif
+
+
                     </tr>
                     @endforeach
                 <tbody>

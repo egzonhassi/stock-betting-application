@@ -38,3 +38,7 @@ Route::get('fixPrice/{id}' , 'UserController@fixPrice')->name('fixPrice');
 
 Route::get('bettingHistory', 'UserController@bettingHistory')->name('bettingHistory');
 
+Route::get('test' , function(){
+
+    dd(Carbon::now());
+});

@@ -40,14 +40,14 @@ class BetsController extends Controller
         $user = Auth::user();
         if($user){
 
-            if($user->tokens >= $r->ammount){
+            if($user->tokens >= $r->amount){
                 $bet = new Bets();
                 $bet->stock_prices_id = $id;
                 $bet->user_id = $user->id;
-                $bet->bet_price = $r->ammount;
+                $bet->bet_price = $r->amount;
                 $bet->bet_type = $r->betType;
 
-                $user->tokens = $user->tokens - $r->ammount;
+                $user->tokens = $user->tokens - $r->amount;
 
                 if($bet->save() && $user->save()){
                     return redirect()->back()->with('success' , 'Bet Placed, Good Luck!');

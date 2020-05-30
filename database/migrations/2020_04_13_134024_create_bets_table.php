@@ -19,6 +19,7 @@ class CreateBetsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->double('bet_price' , 18 , 2)->unsigned();
             $table->string('bet_type' , 100);
+            $table->string('status' , 100)->default('unknown yet'); // 1 for won, 2 for lost
             $table->timestamps();
         });
     }

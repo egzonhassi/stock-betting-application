@@ -37,10 +37,11 @@ class UserController extends Controller
 
         if(Auth::user()){
 
-            $bets = Bets::select("companies.name" , "bets.created_at" , "bets.bet_price" , "bets.bet_type")
+            $bets = Bets::select("companies.name" , "bets.created_at" , "bets.bet_price" , "bets.bet_type" , "bets.status")
             ->join('stock_prices' , 'stock_prices.id' , '=' ,'bets.stock_prices_id')
             ->join('companies' , 'companies.id' , '=' ,'company_id')
             ->where('bets.user_id' , '=' , Auth::user()->id)
+            ->orderBy('bets.created_at' , 'ASC')
             ->get();
 
             $activeBets = Bets::where('bets.user_id' , '=' , Auth::user()->id)->whereDate('created_at' , Carbon::today())->count();

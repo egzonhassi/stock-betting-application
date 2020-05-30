@@ -14,27 +14,27 @@
             <div class="form-group">
                 <input type="text" value="{{$company->name}}"
                     class="form-control form-control-user"
-                    name="ammount" readonly
+                    name="amount" readonly
                     autofocus>
             </div>
             <div class="form-group">
                 <input type="number" value="{{$company->price}}"
                     class="form-control form-control-user"
-                    name="ammount" readonly
+                    name="amount" readonly
                     autofocus>
             </div>
             <div class="form-group">
-                <input type="number" placeholder="Bet Ammount"
+                <input type="number" placeholder="Bet Amount"
                     class="form-control form-control-user"
-                    name="ammount" required
+                    name="amount" required
                     autofocus>
             </div>
             <div class="d-flex justify-content-between" data-toggle="buttons">
                 <label class="btn btn-primary">
-                  <input type="radio" name="betType" value="up" id="option1"> UP
+                  <input type="radio" name="betType" value="up" id="option1"> Increase
                 </label>
                 <label class="btn btn-primary">
-                  <input type="radio" name="betType" value="down" id="option2"> DOWN
+                  <input type="radio" name="betType" value="down" id="option2"> Decrease
                 </label>
           </div>
             <button class="d-flex m-0-auto btn btn-success" type="submit">Submit</button>

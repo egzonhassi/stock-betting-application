@@ -16,7 +16,6 @@
 
           <script>
               var data = @json($data);
-              console.log(data);
               initializeHighChart(data)
           </script>
 

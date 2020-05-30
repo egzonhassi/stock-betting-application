@@ -14,4 +14,8 @@ class StockPrice extends Model
     {
         return $this->belongsTo('App\Company');
     }
+
+    public function bets(){
+        return $this->hasMany('App\Bets');
+    }
 }
