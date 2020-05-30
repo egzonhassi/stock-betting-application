@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +37,7 @@ Route::get('fixPrices' , 'UserController@fixPrices')->name('fixPrices');
 Route::get('fixPrice/{id}' , 'UserController@fixPrice')->name('fixPrice');
 
 Route::get("test", function(){
-    $companies = App\Company::select('companies.name' , 'stock_prices.price' , 'companies.symbol')
-            ->join('stock_prices' , 'companies.id' , '=' , 'stock_prices.company_id')
-            ->where('stock_prices.new' , '=' ,'1')->get();
 
-    return response()->json($companies, 200);
+
+    return response()->json($bets, 200);
 });

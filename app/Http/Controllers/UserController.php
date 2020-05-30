@@ -7,6 +7,7 @@ use App\Bets;
 use App\Company;
 use Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -15,7 +16,17 @@ class UserController extends Controller
             $companies = Company::select('companies.id','companies.name' , 'stock_prices.price')
             ->join('stock_prices' , 'companies.id' , '=' , 'stock_prices.company_id')
             ->where('stock_prices.new' , '=' ,'1')->get();
-            return view('dashboard')->with('companies' , $companies);
+
+            $activeBets = Bets::where('bets.user_id' , '=' , Auth::user()->id)->whereDate('created_at' , Carbon::today())->count();
+
+            $numberOfbets = Bets::where('bets.user_id' , '=' , Auth::user()->id)->count();
+
+
+            return view('dashboard')->with([
+                'companies' => $companies,
+                'activeBets' => $activeBets,
+                'numberOfBets' => $numberOfbets
+                ]);
         }else{
             return redirect('/');
         }
