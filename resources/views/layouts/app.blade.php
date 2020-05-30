@@ -14,6 +14,13 @@
 
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="{{asset('js/highchart.js')}}"></script>
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -79,9 +86,9 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('chart')}}">
+                        <a class="nav-link" href="{{route('stockPriceChart')}}">
                             <i class="fas fa-fw fa-chart-area"></i>
-                            <span>Tokens Chart</span></a>
+                            <span>Stock Price Chart</span></a>
                     </li>
 
                     <hr class="sidebar-divider d-none d-md-block">
@@ -185,12 +192,6 @@
             <script src={{ asset('vendor/jquery-easing/jquery.easing.js') }}></script>
 
             <script src={{ asset('js/sb-admin-2.js') }}></script>
-
-            <script src={{ asset('vendor/chart.js/Chart.js') }}></script>
-
-            <script src={{ asset('js/demo/chart-area-demo.js') }}></script>
-            <script src={{ asset('js/demo/chart-pie-demo.js') }}></script>
-            <script src={{ asset('js/demo/chart-bar-demo.js') }}></script>
 
         </body>
 

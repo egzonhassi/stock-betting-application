@@ -2,84 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\StockPrice;
 use Illuminate\Http\Request;
 
 class StockPriceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+   public function stockPriceChart(){
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    $returnArray = array(
+        "data" => $this->getCompaniesStockPrice(),
+        "startdate" => $this->startDate()
+    );
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    return view('stockPriceChart')->with('data' , $returnArray);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\StockPrice  $stockPrice
-     * @return \Illuminate\Http\Response
-     */
-    public function show(StockPrice $stockPrice)
-    {
-        //
-    }
+   }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\StockPrice  $stockPrice
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(StockPrice $stockPrice)
-    {
-        //
-    }
+   public function getCompaniesStockPrice(){
+       $companies = Company::all();
+        $returnArray = array();
+       foreach ($companies as $company) {
+        $data = StockPrice::where('company_id' , '=' , $company->id)->pluck('price');
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\StockPrice  $stockPrice
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, StockPrice $stockPrice)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\StockPrice  $stockPrice
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(StockPrice $stockPrice)
-    {
-        //
-    }
+        $dataArray= array(
+            "name" => $company->name,
+            "data" => $data
+        );
+        array_push($returnArray , $dataArray);
+       }
+
+
+       return $returnArray;
+
+
+
+
+   }
+
+   public function startDate(){
+
+    $data = StockPrice::select('created_at')->orderBy('created_at','asc')->first();
+
+    $year = date('Y', strtotime($data->created_at));
+    $month = date('m', strtotime($data->created_at));
+    $day = date('d', strtotime($data->created_at));
+
+    $returnArray = array(
+        "year" => $year,
+        "month" =>  $month,
+        "day" => $day
+    );
+
+    return $returnArray;
+   }
 }

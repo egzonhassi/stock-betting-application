@@ -58,8 +58,8 @@ class UserController extends Controller
         }
     }
 
-    public function chart(){
-        return view('chart');
+    public function stockPriceChart(){
+        return view('stockPriceChart');
     }
 
     public function fixPrices(){

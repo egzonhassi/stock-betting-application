@@ -14,6 +14,12 @@ class StockPricesSeeder extends Seeder
     {
         $companies = Company::all();
 
+        $Stockprice = StockPrice::where('new' , '=' ,'1');
+
+        if($Stockprice){
+            StockPrice::where('new', '=', 1)->update(array('new' => 0));
+        }
+
         foreach ($companies as $company) {
             $newStock = new StockPrice();
             $newStock->price =  $this->getStockPrice($company->symbol);
@@ -36,7 +42,11 @@ class StockPricesSeeder extends Seeder
         curl_close($ch);
 
 
+        $price =json_decode($result , true)['iexRealtimePrice']; //
 
-        return json_decode($result , true)['iexRealtimePrice'];
+        if($price == null){
+            $price = json_decode($result , true)['latestPrice'];
+        }
+        return $price;
     }
 }

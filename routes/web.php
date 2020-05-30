@@ -26,7 +26,7 @@ Auth::routes();
 
 Route::get('dashboard', 'UserController@dashboard')->name('dashboard');
 
-Route::get('chart', 'UserController@chart')->name('chart');
+Route::get('stockPriceChart', 'StockPriceController@stockPriceChart')->name('stockPriceChart');
 
 Route::get('placeBets/{id}' , 'BetsController@index')->name('placeBets');
 
@@ -38,7 +38,3 @@ Route::get('fixPrice/{id}' , 'UserController@fixPrice')->name('fixPrice');
 
 Route::get('bettingHistory', 'UserController@bettingHistory')->name('bettingHistory');
 
-Route::get("test", function(){
-
-
-});
