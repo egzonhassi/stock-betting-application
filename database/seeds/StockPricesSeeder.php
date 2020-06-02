@@ -26,7 +26,14 @@ class StockPricesSeeder extends Seeder
 
         foreach ($companies as $company) {
             $newStock = new StockPrice();
-            $newStock->price =  $this->getStockPrice($company->symbol);
+            if($company->isFixed != 1){
+                $newStock->price =  $this->getStockPrice($company->symbol);
+            }else{
+                $newStock->price = $company->fixed_price;
+                $company->isFixed = 0;
+                $company->fixed_price = null;
+                $company->save();
+            }
             $newStock->company_id = $company->id;
             $newStock->save();
         }
@@ -50,6 +57,8 @@ class StockPricesSeeder extends Seeder
 
                 if($yesterdaysPrice < $todaysPrice){
                     $winningType = "up";
+                }else if($yesterdaysPrice == $todaysPrice){
+                    $winningType = "same";
                 }else{
                     $winningType = "down";
                 }
@@ -59,7 +68,13 @@ class StockPricesSeeder extends Seeder
 
 
             foreach($activeBets as $bet){
-                if($companyBetWinningArray[$bet->stock->company_id] == $bet->bet_type){
+                if($companyBetWinningArray[$bet->stock->company_id] == "same"){
+                    $user = User::find($bet->user_id);
+                    $user->tokens = $user->tokens + $bet->bet_price;
+                    $bet->status = "Canceled";
+                    $bet->save();
+                    $user->save();
+                }elseif($companyBetWinningArray[$bet->stock->company_id] == $bet->bet_type){
                     $user = User::find($bet->user_id);
                     $user->tokens = $user->tokens + (2 * $bet->bet_price);
                     $bet->status = "Won";

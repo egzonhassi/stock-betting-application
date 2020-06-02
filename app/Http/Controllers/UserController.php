@@ -5,6 +5,7 @@ use App\User;
 use App\Stock;
 use App\Bets;
 use App\Company;
+use App\StockPrice;
 use Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -65,7 +66,7 @@ class UserController extends Controller
 
     public function fixPrices(){
         if(Auth::user()->isAdmin == 1){
-            $companies = Company::select('companies.id','companies.name' , 'stock_prices.price' , 'companies.symbol' , 'companies.isFixed')
+            $companies = Company::select('companies.fixed_price' , 'companies.id','companies.name' , 'stock_prices.price' , 'companies.symbol' , 'companies.isFixed')
             ->join('stock_prices' , 'companies.id' , '=' , 'stock_prices.company_id')
             ->where('stock_prices.new' , '=' ,'1')->get();
             return view('admin.fixPrices')->with('companies' , $companies);
@@ -74,17 +75,39 @@ class UserController extends Controller
         }
     }
 
-    public function fixPrice($id){
+    public function fix(Request $r , $id){
         if(Auth::user()->isAdmin == 1){
             $company = Company::find($id);
-            if($company->isFixed == 1){
-                $company->isFixed = 0;
-            }else{
-                $company->isFixed = 1;
-            }
+            $company->isFixed = 1;
+            $company->fixed_price = $r->fixedPrice;
                 $company->save();
 
             return redirect()->back()->with('success' , 'Company Got Fixed');
+        }else{
+            return view('404');
+        }
+    }
+
+    public function fixPrice($id){
+        if(Auth::user()->isAdmin == 1){
+            $company = Company::find($id);
+            $company->price = StockPrice::where('company_id' , '=', $company->id)->where('new' ,'=' ,'1')->pluck('price')[0];
+            return view('admin.fix')->with('company' , $company);
+        }else{
+            return view('404');
+        }
+    }
+
+    public function unfix($id){
+        if(Auth::user()->isAdmin == 1){
+            $company = Company::find($id);
+            $company->isFixed = 0;
+            if($company->save()){
+                return redirect()->back()->with('success' , 'Company Got Unfixed');
+            }
+            return redirect()->back()->withErrors(['Something went wrong.']);
+
+
         }else{
             return view('404');
         }

@@ -8,7 +8,7 @@ class Company extends Model
 {
     protected $table = 'companies';
 
-    protected $fillable = ['name','symbol'];
+    protected $fillable = ['name','symbol' , 'isFixed' , 'fixedPrice'];
 
     public function stocs()
     {

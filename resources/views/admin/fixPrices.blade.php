@@ -16,6 +16,7 @@
                         <th>Current Price</th>
                         <th>Is Fixed</th>
                         <th>Fix Price</th>
+                        <th>Fixed Value</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -24,7 +25,7 @@
                         <th>Symbol</th>
                         <th>Current Price</th>
                         <th>Is Fixed</th>
-                        <th>Fix Price</th>
+                        <th>Fixed Value</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -48,20 +49,24 @@
                         </td>
                         <td>
                             @if($company->isFixed != 1)
-                            <a href="{{route('fixPrice' , $company->id)}}" onclick="return confirm('Are you sure you want to fix the price of {{$company->name}} ?')" class="btn btn-warning btn-icon-split">
+                            <a href="{{route('fixPrice' , $company->id)}}" class="btn btn-warning btn-icon-split">
                                 <span class="icon text-white-50">
                                   <i class="fas fa-exclamation-triangle"></i>
                                 </span>
                                 <span class="text">Fix Price</span>
                               </a>
                             @else
-                            <a href="{{route('fixPrice' , $company->id)}}" onclick="return confirm('Are you sure you want to unfix the price of {{$company->name}} ?')" class="btn btn-primary btn-icon-split">
+                            <a href="{{route('unfix' , $company->id)}}" class="btn btn-primary btn-icon-split">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-flag"></i>
                                 </span>
                                 <span class="text">Unfix Price</span>
                               </a>
                             @endif
+                        </td>
+
+                        <td>
+                            {{$company->fixed_price}}
                         </td>
                     </tr>
                     @endforeach

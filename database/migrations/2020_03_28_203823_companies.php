@@ -18,6 +18,7 @@ class Companies extends Migration
             $table->string('name', 100)->nullable();
             $table->string('symbol', 100)->nullable();
             $table->tinyInteger('isFixed')->unsigned()->default('0');
+            $table->double('fixed_price' , 18 , 2)->unsigned();
             $table->timestamps();
         });
     }
