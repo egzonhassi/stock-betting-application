@@ -38,11 +38,10 @@ Route::get('fixPrice/{id}' , 'UserController@fixPrice')->name('fixPrice');
 
 Route::post('fix/{id}' , 'UserController@fix')->name('fix');
 
+Route::get('profile' , 'UserController@profile')->name('profile');
+
+Route::post('profile' , "UserController@updateProfile")->name('profile');
+
 Route::get('unfix/{id}' , 'UserController@unfix')->name('unfix');
 
 Route::get('bettingHistory', 'UserController@bettingHistory')->name('bettingHistory');
-
-Route::get('test' , function(){
-
-    dd(Carbon::now());
-});

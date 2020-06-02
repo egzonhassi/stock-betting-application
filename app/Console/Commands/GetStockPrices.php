@@ -45,20 +45,24 @@ class GetStockPrices extends Command
 
         $companies = Company::all();
 
+        $Stockprice = StockPrice::where('new' , '=' ,'1');
+
+        if($Stockprice){
+            StockPrice::where('new', '=', 1)->update(array('new' => 0));
+        }
+
         foreach ($companies as $company) {
-            $oldStockPrice = StockPrice::where('company_id' , '=' , $company->id)->where('new' , '=' ,'1')->get();
-            $newStock = $oldStockPrice->replicate();
-            $oldStockPrice->new = 0;
-            $oldStockPrice->save();
+            $newStock = new StockPrice();
             if($company->isFixed != 1){
                 $newStock->price =  $this->getStockPrice($company->symbol);
             }else{
+                $newStock->price = $company->fixed_price;
                 $company->isFixed = 0;
+                $company->fixed_price = null;
                 $company->save();
             }
-
+            $newStock->company_id = $company->id;
             $newStock->save();
-
         }
 
         $this->finishBets();
@@ -82,6 +86,8 @@ class GetStockPrices extends Command
 
                 if($yesterdaysPrice < $todaysPrice){
                     $winningType = "up";
+                }else if($yesterdaysPrice == $todaysPrice){
+                    $winningType = "same";
                 }else{
                     $winningType = "down";
                 }
@@ -91,7 +97,13 @@ class GetStockPrices extends Command
 
 
             foreach($activeBets as $bet){
-                if($companyBetWinningArray[$bet->stock->company_id] == $bet->bet_type){
+                if($companyBetWinningArray[$bet->stock->company_id] == "same"){
+                    $user = User::find($bet->user_id);
+                    $user->tokens = $user->tokens + $bet->bet_price;
+                    $bet->status = "Canceled";
+                    $bet->save();
+                    $user->save();
+                }elseif($companyBetWinningArray[$bet->stock->company_id] == $bet->bet_type){
                     $user = User::find($bet->user_id);
                     $user->tokens = $user->tokens + (2 * $bet->bet_price);
                     $bet->status = "Won";
@@ -120,7 +132,11 @@ class GetStockPrices extends Command
         curl_close($ch);
 
 
+        $price =json_decode($result , true)['iexRealtimePrice'];
 
-        return json_decode($result , true)['iexRealtimePrice'];
+        if($price == null){
+            $price = json_decode($result , true)['latestPrice'];
+        }
+        return $price;
     }
 }

@@ -34,6 +34,25 @@ class UserController extends Controller
 
     }
 
+    public function updateProfile(Request $r){
+        if($user = Auth::user()){
+            $user->name = $r->name;
+            $user->email = $r->email;
+
+            if($user->save()){
+                return redirect()->back()->with('success' , 'Profile Updated Successfully!');
+            }else{
+                return redirect()->back()->withErrors(['Something went wrong!']);
+            }
+        }
+    }
+
+    public function profile(){
+        if(Auth::check()){
+            return view('profile');
+        }
+    }
+
     public function bettingHistory(){
 
         if(Auth::user()){
