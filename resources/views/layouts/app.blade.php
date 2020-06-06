@@ -42,7 +42,7 @@
 
         <body id="page-top">
             <div id="wrapper">
-
+                @if(Auth::check())
                 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
                     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard')}}">
@@ -98,11 +98,11 @@
                     </div>
 
                 </ul>
-
+                @endif
                 <div id="content-wrapper" class="d-flex flex-column">
 
                     <div id="content">
-
+                        @if(Auth::check())
                         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -134,7 +134,7 @@
                                             Profile
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#" data-toggle="modal"
+                                        <a class="dropdown-item" href="" data-toggle="modal"
                                             data-target="#logoutModal">
                                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                             Logout
@@ -145,7 +145,7 @@
                             </ul>
 
                         </nav>
-
+                        @endif
                         <div class="container-fluid">
                             @yield('content')
                         </div>
@@ -179,7 +179,7 @@
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                             {!!Form::open(array('route' => 'logout', 'method' => 'post')) !!}
-                            <a class="btn btn-primary">Logout</a>
+                            <button type="submit" class="btn btn-primary">Logout</a>
                             {!! Form::close() !!}
                         </div>
                     </div>

@@ -59,7 +59,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
+                                            <div class="custom-control custom-checkbox small text-center">
                                                 <input class="form-check-input" type="checkbox" name="remember"
                                                     id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -74,8 +74,7 @@
 
                                         @if (Route::has('password.request'))
                                         <div class="text-center">
-                                            <a class="small"
-                                                href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+                                            <span class="small">Please don't forget your passwords, our developers don't get payed too much for you to reset it.</span>
                                         </div>
                                         @endif
                                         <div class="text-center">
